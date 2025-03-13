@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 def valores(a,b,N):
@@ -64,7 +65,6 @@ def newton_method(a, b, N, tol=1e-8, max_iter=100):
         f_vec = f(w, t, g)
         residual = np.max(np.abs(f_vec))
         if residual < tol:
-            print(f"Convergência em {iteration+1} iterações. Resíduo: {residual:.2e}")
             return w, t
         
         J = compute_jacobian(w, t, g)
@@ -72,22 +72,21 @@ def newton_method(a, b, N, tol=1e-8, max_iter=100):
         try:
             delta = np.linalg.solve(J, -f_vec) 
         except np.linalg.LinAlgError:
-            print("Erro: Jacobiana singular.")
+            print("Erro")
             return w, t
         
         w += delta[:N]
         t += delta[N:]
 
-    print(f"Não convergiu após {max_iter} iterações. Resíduo: {residual:.2e}")
     return w, t
 def aproximada(f, w, t):
    
     return np.sum(w * f(t))
 def funcao_exemplo(x):
-    return x**2
-a =-1;
-b=1;
-N=4;
+    return np.exp(x)*np.cos(x)
+a =0;
+b=1.2;
+N=7;
 
 weights, nodes = newton_method(a, b, N)
 print("\nResultados:")
