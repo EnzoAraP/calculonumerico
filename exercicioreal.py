@@ -80,14 +80,21 @@ def newton_method(a, b, N, tol=1e-8, max_iter=100):
 
     print(f"Não convergiu após {max_iter} iterações. Resíduo: {residual:.2e}")
     return w, t
-
+def aproximada(f, w, t):
+   
+    return np.sum(w * f(t))
+def funcao_exemplo(x):
+    return x**2
 a =-1;
 b=1;
 N=4;
+
 weights, nodes = newton_method(a, b, N)
 print("\nResultados:")
 print("Pesos:", np.round(weights, 6))
+resultado = aproximada(funcao_exemplo, weights, nodes)
 print("Nós:  ", np.round(nodes, 6))
+print("Resultado da integral aproximada:", resultado)
 
 
 
